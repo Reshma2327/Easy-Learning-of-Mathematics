@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math Game</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+  <div class="bg-white shadow-md sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center">
+      <button onclick="redirectToHome()" class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+        <i class="fa-solid fa-house text-gray-700"></i>
+      </button>
+      <h1 class="text-2xl font-bold text-gray-800 ml-4">Math Game</h1>
+    </div>
+  </div>
+
+  <main class="max-w-2xl mx-auto px-4 py-8">
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <div class="p-6 border-b">
+        <h2 class="text-xl font-bold text-gray-800">Number Guessing Game</h2>
+        <p class="text-gray-600 mt-1">Guess the number between 1 and 10</p>
+      </div>
+      
+      <div class="p-6">
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <h3 class="font-medium text-blue-800 mb-2">How to play:</h3>
+          <ol class="list-decimal list-inside space-y-1 text-blue-700">
+            <li>Guess a number from 1 to 10</li>
+            <li>Enter your guess in the field below</li>
+            <li>Click "Check" to see if you're correct</li>
+            <li>You start with 10 points and lose 1 for each wrong guess</li>
+          </ol>
+        </div>
+
+        <div class="text-center">
+          <div class="inline-block bg-yellow-500 text-white font-bold px-6 py-3 rounded-lg shadow mb-6">
+            Try to guess the number
+          </div>
+          
+          <div class="max-w-xs mx-auto">
+            <input
+              id="guessnumber"
+              type="number"
+              min="1"
+              max="10"
+              placeholder="Enter number (1-10)"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-center text-lg"
+            >
+          </div>
+          
+          <div class="mt-6 flex justify-center space-x-4">
+            <button
+              onclick="check()"
+              class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 shadow-md transition-colors font-medium"
+            >
+              Check
+            </button>
+            <button
+              onclick="openModal('Thanks for playing!', 'redirect')"
+              class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 shadow-md transition-colors font-medium"
+            >
+              Thank You
+            </button>
+          </div>
+          
+          <div class="mt-8 space-y-2">
+            <p id="result" class="text-lg font-medium">
+              Your guess is <span class="font-bold">Correct</span> or <span class="font-bold">Wrong</span>
+            </p>
+            <p id="score" class="text-xl font-bold text-blue-600">
+              Score: <span>10</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="alert_modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-sm overflow-hidden">
+      <div class="flex justify-between items-center p-4 border-b">
+        <h3 class="text-lg font-semibold text-gray-900">Game Message</h3>
+        <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="p-6 text-center">
+        <p id="alert_text" class="text-gray-700"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const guessnumber = document.getElementById("guessnumber");
+    const result = document.getElementById("result");
+    const score = document.getElementById("score");
+
+    let randomNumber = Math.floor(Math.random() * 10) + 1;
+    let totalscore = 10;
+
+    const redirectToHome = () => {
+      window.location.href = "index.html";
+    };
+
+    const check = () => {
+      const enterednumber = parseInt(guessnumber.value);
+      if (!enterednumber || enterednumber < 1 || enterednumber > 10) {
+        openModal("Please enter a valid number between 1 and 10");
+        return;
+      }
+
+      if (enterednumber == randomNumber) {
+        result.innerHTML = `<span class="text-green-600">Correct! You guessed the number ${randomNumber}</span>`;
+        openModal("YOU GOT IT! Congrats 🎉");
+        randomNumber = Math.floor(Math.random() * 10) + 1;
+      } else {
+        totalscore -= 1;
+        result.innerHTML = `<span class="text-red-600">Wrong! Try again</span>`;
+        score.innerHTML = `Score: <span class="${totalscore <= 3 ? 'text-red-600' : 'text-blue-600'}">${totalscore}</span>`;
+
+        if (totalscore <= 0) {
+          openModal(`Game Over! The correct number was ${randomNumber}`);
+          randomNumber = Math.floor(Math.random() * 10) + 1;
+          totalscore = 10;
+          score.innerHTML = `Score: <span>10</span>`;
+          result.innerHTML = `Your guess is <span class="font-bold">Correct</span> or <span class="font-bold">Wrong</span>`;
+        }
+      }
+    };
+
+    const modal = document.getElementById("alert_modal");
+    const alert_text = document.getElementById("alert_text");
+
+    const openModal = (msg, type = "default") => {
+      modal.classList.remove("hidden");
+      alert_text.innerHTML = msg;
+      setTimeout(() => {
+        closeModal();
+        if (type == "redirect") redirectToHome();
+      }, 3000);
+    };
+
+    const closeModal = () => {
+      modal.classList.add("hidden");
+    };
+  </script>
+</body>
+</html>

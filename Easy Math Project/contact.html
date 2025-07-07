@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl relative shadow-lg p-6 mb-8 text-center">
+      <button onclick="redirectToHome()" class="p-2 absolute left-16 top-1/2 transform -translate-y-1/2 rounded-full transition-colors">
+        <i class="fa-solid fa-house"></i>
+      </button>
+      <h1 class="text-3xl font-bold  mb-2">Contact Details</h1>
+      <p class=" max-w-2xl mx-auto">
+        Have questions or feedback? Reach out to us using the information below.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden max-w-md mx-auto">
+      <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-center text-white">
+        <h2 class="text-2xl font-bold">Easy Maths Team</h2>
+        <p class="mt-1 opacity-90">We're here to help</p>
+      </div>
+      <div class="p-6 space-y-4">
+        <div class="flex items-start space-x-4">
+          <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div>
+            <h3 class="font-medium text-gray-900">Name</h3>
+            <p class="text-gray-600">Reshma</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div>
+            <h3 class="font-medium text-gray-900">Email</h3>
+            <p class="text-gray-600">Easymath@gmail.com</p>
+          </div>
+        </div>
+        <div class="flex items-start space-x-4">
+          <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <div>
+            <h3 class="font-medium text-gray-900">Phone</h3>
+            <p class="text-gray-600">9865432675</p>
+          </div>
+        </div>
+      </div>
+      <div class="px-6 py-4 bg-gray-50 text-center">
+        <button class="text-blue-600 font-medium hover:text-blue-700 transition-colors">
+          <i class="fa-solid fa-paper-plane mr-2"></i>Send us a message
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+    const redirectToHome = () => {
+      window.location.href = "index.html";
+    };
+
+  </script>
+</html>
